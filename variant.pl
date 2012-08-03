@@ -51,6 +51,7 @@ print LEM "\@prefix cawninst: <$inst> .\n";
 print LEM "\n";
 print LEM "<$leminst>\n";
 print LEM "    a lemon:Lexicon .\n";
+print LEM "\n";
 
 while(<IN>) {
 	#...wherein our protagonist generates a _ridiculous_ amount of triples from each individual csv line...
@@ -71,7 +72,7 @@ while(<IN>) {
 	print OUT "\n";
 
 	print LEM "<$leminst>\n";
-	print LEM "    lemon:entry <${leminst}$ulem-$poslexvo{$pos}>\n";
+	print LEM "    lemon:entry <${leminst}$ulem-$poslexvo{$pos}> .\n";
 	print LEM "\n";
 	print LEM "<${leminst}$ulem-$pos-$sense>\n";
 	print LEM "    lemon:reference cawninst:synsetid-$synset .\n";
