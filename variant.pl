@@ -7,6 +7,7 @@ use URI::Escape;
 
 open (OUT, ">", "caWN-200611-variant.ttl");
 open (LEM, ">", "caWN-200611-variant-lemon.ttl");
+open (LNK, ">", "caWN-200611-variant-links.nt");
 open (IN, "<", "caWN-200611-variant");
 
 binmode(OUT, ":encoding(utf8)");
@@ -25,9 +26,13 @@ my %poslexvo = ('n' => 'noun',
 		'a' => 'adjective',
 		'v' => 'verb');
 
-my $inst = 'file:/foo/';
-my $leminst = 'file:/baz/';
-my $caex = 'file:/bar/';
+# Non-dereferenceable URIs make the baby Jesus cry. Or something like that.
+# Right about now, I need to walk barefoot through the streets, cap in hand,
+# saying "please guv'nor, spare a SPARQL endpoint"
+my $base = 'https://github.com/jimregan/caWN-200611-rdf/';
+my $inst = "${base}caWN/";
+my $leminst = "${base}lemon/";
+my $caex = '${inst}extra.ttl';
 
 print OUT "\@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n";
 print OUT "\@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n";
@@ -44,8 +49,12 @@ print LEM "\@prefix lemon: <http://www.monnet-project.eu/lemon#> .\n";
 print LEM "\@prefix inst: <$leminst> .\n";
 print LEM "\@prefix cawninst: <$inst> .\n";
 print LEM "\n";
+print LEM "<$leminst>\n";
+print LEM "    a lemon:Lexicon .\n";
 
 while(<IN>) {
+	#...wherein our protagonist generates a _ridiculous_ amount of triples from each individual csv line...
+
 	my ($pos, $synset, $lemma, $sense, $cs, $null) = split/\|/;
 	my $ulem = uri_escape_utf8($lemma);
 	my $lbl = $lemma =~ s/_/ /g;
@@ -61,7 +70,9 @@ while(<IN>) {
 	print OUT "    rdfs:label \"$lemma\"\@ca .\n";
 	print OUT "\n";
 
-
+	print LEM "<$leminst>\n";
+	print LEM "    lemon:entry <${leminst}$ulem-$poslexvo{$pos}>\n";
+	print LEM "\n";
 	print LEM "<${leminst}$ulem-$pos-$sense>\n";
 	print LEM "    lemon:reference cawninst:synsetid-$synset .\n";
 	print LEM "\n";
@@ -74,4 +85,9 @@ while(<IN>) {
 	print LEM "    lemon:canonicalForm <${leminst}word-$ulem-canonicalForm> ;\n";
 	print LEM "    lexinfo:partOfSpeech lexinfo:$poslexvo{$pos} .\n";
 	print LEM "\n";
+	print LEM "<$leminst>\n";
+	print LEM "    lemon:entry <${leminst}$ulem-$poslexvo{$pos}> .\n";
+	print LEM "\n";
+
+	print LNK "<${inst}wordsense-$ulem-$pos-$sense> <http://www.w3.org/2002/07/owl#sameAs> <${leminst}$ulem-$pos-$sense> .\n";
 }
