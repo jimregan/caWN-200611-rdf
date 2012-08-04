@@ -79,4 +79,15 @@ caWNextra:nearAntonymOf
     rdfs:domain wn20schema:Synset ;
     rdfs:range wn20schema:Synset .
 
+caWNextra:nearSynonymOf
+    a rdf:Property, owl:SymmetricProperty ;
+    rdfs:comment "It specifies near synonymous synsets."@en-us ;
+    rdfs:domain wn20schema:Synset ;
+    rdfs:range wn20schema:Synset .
+
+caWNextra:xposNearSynonymOf
+    a rdf:Property, owl:SymmetricProperty ;
+    rdfs:comment "It specifies near synonymous synsets across Part of Speech."@en-us ;
+    rdfs:domain wn20schema:Synset ;
+    rdfs:range wn20schema:Synset .
 
