@@ -1,0 +1,82 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix wn20schema: <http://www.w3.org/2006/03/wn/wn20/schema/> .
+@prefix caWNextra: <https://github.com/jimregan/caWN-200611-rdf/extra.ttl#> .
+
+caWNextra:humanVerified
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment """True if human-verified and locked"""@en ;
+    rdfs:range xsd:boolean ;
+    rdfs:subPropertyOf rdfs:comment .
+    
+caWNextra:noCatalanLexicalForm
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment """True if there is no Catalan lexical form for the concept"""@en ;
+    rdfs:range xsd:boolean ;
+    rdfs:subPropertyOf rdfs:comment .
+
+caWNextra:confidenceScore
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment """Confidence score"""@en ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:subPropertyOf rdfs:comment .
+
+caWNextra:hasDerivedSynset
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment """It specifies that there exists a lexical morphosemantic relation between the first and second synset representing derivational morphology."""@en-us ;
+    rdfs:domain wn20schema:Synset ;
+    rdfs:range wn20schema:Synset .
+
+caWNextra:derivedFrom .
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "inverse of hasDerivedSynset"@en ;
+    owl:inverseOf caWNextra:hasDerivedSynset .
+
+caWNextra:adjectivePertainsTo
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "It specifies an adjective synset that pertains to the noun second synset."@en-us ;
+    rdfs:domain wn20schema:AdjectiveSynset ;
+    rdfs:range wn20schema:NounSynset .
+
+caWNextra:adjectiveCausedByNoun
+    a owl:ObjectProperty ;
+    rdfs:comment "inverse of nounCausesAdjective."@en-us ;
+    owl:inverseOf nounCausesAdjective .
+
+caWNextra:nounCausesAdjective
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "It specifies an adjective synset that is caused by a noun syset"@en-us ;
+    rdfs:domain wn20schema:NounSynset ;
+    rdfs:range wn20schema:AdjectiveSynset .
+
+caWNextra:nounCausedByNoun
+    a owl:ObjectProperty ;
+    rdfs:comment "inverse of nounCausesNoun."@en-us ;
+    owl:inverseOf nounCausesNoun .
+
+caWNextra:nounCausesNoun
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "It specifies a noun synset that is caused by a noun syset"@en-us ;
+    rdfs:domain wn20schema:NounSynset ;
+    rdfs:range wn20schema:NounSynset .
+
+caWNextra:nounCausedByAdjective
+    a owl:ObjectProperty ;
+    rdfs:comment "inverse of adjectiveCausesNoun."@en-us ;
+    owl:inverseOf adjectiveCausesNoun .
+
+caWNextra:adjectiveCausesNoun
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "It specifies a noun synset that is caused by an adjective syset"@en-us ;
+    rdfs:domain wn20schema:AdjectiveSynset ;
+    rdfs:range wn20schema:NounSynset .
+
+caWNextra:nearAntonymOf
+    a rdf:Property, owl:SymmetricProperty ;
+    rdfs:comment "It specifies near antonymous synsets."@en-us ;
+    rdfs:domain wn20schema:Synset ;
+    rdfs:range wn20schema:Synset .
+
+

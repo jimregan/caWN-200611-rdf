@@ -16,15 +16,18 @@ binmode(IN, ":encoding(latin-1)");
 
 my %possense = ('n' => 'NounWordSense',
 		'a' => 'AdjectiveWordSense',
-		'v' => 'VerbWordSense');
+		'v' => 'VerbWordSense',
+		'r' => 'AdverbWordSense');
 
 my %possynset = ('n' => 'NounSynset',
 		'a' => 'AdjectiveSynset',
-		'v' => 'VerbSynset');
+		'v' => 'VerbSynset',
+		'r' => 'AdverbSynset');
 
 my %poslexvo = ('n' => 'noun',
 		'a' => 'adjective',
-		'v' => 'verb');
+		'v' => 'verb',
+		'r' => 'adverb');
 
 # Non-dereferenceable URIs make the baby Jesus cry. Or something like that.
 # Right about now, I need to walk barefoot through the streets, cap in hand,
@@ -32,7 +35,7 @@ my %poslexvo = ('n' => 'noun',
 my $base = 'https://github.com/jimregan/caWN-200611-rdf/';
 my $inst = "${base}caWN/";
 my $leminst = "${base}lemon/";
-my $caex = '${inst}extra.ttl';
+my $caex = '${inst}extra.ttl#';
 
 print OUT "\@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n";
 print OUT "\@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n";
