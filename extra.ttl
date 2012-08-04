@@ -63,7 +63,7 @@ caWNextra:nounCausesNoun
     rdfs:range wn20schema:NounSynset .
 
 caWNextra:nounCausedByAdjective
-    a owl:ObjectProperty ;
+    a rdf:Property, owl:ObjectProperty ;
     rdfs:comment "inverse of adjectiveCausesNoun."@en-us ;
     owl:inverseOf adjectiveCausesNoun .
 
@@ -90,4 +90,51 @@ caWNextra:xposNearSynonymOf
     rdfs:comment "It specifies near synonymous synsets across Part of Speech."@en-us ;
     rdfs:domain wn20schema:Synset ;
     rdfs:range wn20schema:Synset .
+
+caWNextra:roleAgent
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "It specifies that the first noun synset has a role in the second verb or noun synset  (e.g., 'player' role_agent 'play music')."@en-us ;
+    rdfs:domain wn20schema:NounSynset ;
+    rdfs:range [
+        a owl:Class ;
+        owl:unionOf (
+            wn20schema:NounSynset
+            wn20schema:VerbSynset
+        )
+    ] .
+
+caWNextra:involvedAgent
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "inverse of roleAgent"@en ;
+    owl:inverseOf caWNextra:roleAgent .
+
+caWNextra:xposHypernymOf
+    a owl:TransitiveProperty ;
+    rdfs:domain wn20schema:Synset ;
+    rdfs:range wn20schema:Synset ;
+    owl:inverseOf caWNextra:xposHyponymOf .
+
+caWNextra:xposHyponymOf
+    a rdf:Property, owl:TransitiveProperty ;
+    rdfs:comment "It specifies that the second synset is a hypernym of the first synset, across Part of Speech. This relation holds for nouns and verbs. The symmetric operator, hyponym, implies that the first synset is a hyponym of the second synset."@en-us ;
+    rdfs:domain wn20schema:Synset ;
+    rdfs:range wn20schema:Synset ;
+    owl:inverseOf caWNextra:xposHypernymOf .
+
+caWNextra:inState
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:comment "It specifies that a noun synset is in an adjective state (e.g., poor N be_in_state poor A)."@en-us ;
+    rdfs:domain wn20schema:NounSynset ;
+    rdfs:range wn20schema:AdjectiveSynset .
+
+caWNextra:hasState
+    a owl:ObjectProperty ;
+    rdfs:domain wn20schema:AdjectiveSynset ;
+    rdfs:range wn20schema:NounSynset ;
+    owl:inverseOf caWNextra:inState .
+
+caWNextra:hasSubevent
+    a rdf:Property, owl:TransitiveProperty ;
+    rdfs:domain wn20schema:VerbSynset ;
+    rdfs:range wn20schema:VerbSynset .
 

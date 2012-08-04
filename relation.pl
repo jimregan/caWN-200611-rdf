@@ -44,37 +44,42 @@ while(<IN>) {
 		$pred = 'rdfs:seeAlso';
 	} elsif ($rel eq 'has_derived') {
 		$pred = 'caWNextra:hasDerivedSynset';
+	} elsif ($rel eq 'near_antonym') {
+		$pred = 'caWNextra:nearAntonymOf';
+	} elsif ($rel eq 'near_synonym') {
+		$pred = 'caWNextra:nearSynonymOf';
+	} elsif ($rel eq 'xpos_near_synonym') {
+		$pred = 'caWNextra:xposNearSynonymOf';
+	} elsif ($rel eq 'role_agent') {
+		$pred = 'caWNextra:roleAgent';
+	} elsif ($rel eq 'has_hyponym') {
+		$pred = 'wn20schema:hyponymOf';
+	} elsif ($rel eq 'has_xpos_hyponym') {
+		$pred = 'caWNextra:xposHyponymOf';
+	} elsif ($rel eq 'be_in_state') {
+		$pred = 'caWNextra:inState';
+	} elsif ($rel eq 'has_holo_part') {
+		$pred = 'wn20schema:partMeronymOf';
+	} elsif ($rel eq 'has_holo_member') {
+		$pred = 'wn20schema:memberHolonymOf';
+	} elsif ($rel eq 'has_holo_madeof') {
+		$pred = 'wn20schema:substanceMeronymOf';
+	} elsif ($rel eq 'verb_group') {
+		$pred = 'wn20schema:sameVerbGroupAs';
+	} elsif ($rel eq 'has_subevent') {
+		$pred = 'caWNextra:hasSubevent';
 	} else {
 		if (!$seen{"$rel $poss $poso"}) {
 			print STDERR "$rel $poss $poso\n";
 			$seen{"$rel $poss $poso"} = 1;
 		}
 	}
+	if (!$pred || $pred eq '') {
+		print STDERR "$rel $poss $poso\n";
+	}
 
-#	print OUT "inst:synsetid-$ssets\n";
-#	print OUT "    caWNextra:humanVerified \"true\"^^<xsd:boolean> ;\n" if ($ver eq 'i');
-#	print OUT "    caWNextra:noCatalanLexicalForm \"true\"^^<xsd:boolean> ;\n" if ($inca eq 'n');
-#	print OUT "    wn20schema:gloss \"$def\" ;\n" if ($def ne '' && $def ne '\N');
-#	print OUT "    caWNextra:hyponymCount \"$numhyp\"^^<xsd:nonNegativeInteger> .\n";
-#	print OUT "\n";
+	print OUT "inst:synsetid-$ssets\n";
+	print OUT "    $pred inst:synsetid-$sseto.\n" if ($pred ne '');
+	print OUT "\n";
 }
-
-
-xpos_near_synonym n a
-xpos_near_synonym a n
-role_agent n n
-near_synonym a a
-near_antonym a a
-has_xpos_hyponym n a
-has_hyponym v v
-has_hyponym n n
-be_in_state n a
-has_holo_part n n
-has_holo_member n n
-near_antonym n n
-has_holo_madeof n n
-near_antonym r r
-has_subevent v v
-near_antonym v v
-verb_group v v
 
