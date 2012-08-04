@@ -15,6 +15,13 @@ my $base = 'https://github.com/jimregan/caWN-200611-rdf/';
 my $inst = "${base}caWN/";
 my $caex = "${base}extra.ttl#";
 
+my %posnum = (
+	'n' => '1',
+	'v' => '2',
+	'a' => '3',
+	'r' => '4',
+);
+
 print OUT "\@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n";
 print OUT "\@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n";
 print OUT "\@prefix wn20instances: <http://www.w3.org/2006/03/wn/wn20/instances/> .\n";
@@ -78,8 +85,8 @@ while(<IN>) {
 		print STDERR "$rel $poss $poso\n";
 	}
 
-	print OUT "inst:synsetid-$ssets\n";
-	print OUT "    $pred inst:synsetid-$sseto.\n" if ($pred ne '');
+	print OUT "inst:synsetid-${posnum{$poss}}${ssets}\n";
+	print OUT "    $pred inst:synsetid-${posnum{$poso}}${sseto} .\n" if ($pred ne '');
 	print OUT "\n";
 }
 

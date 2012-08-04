@@ -29,6 +29,13 @@ my %poslexvo = ('n' => 'noun',
 		'v' => 'verb',
 		'r' => 'adverb');
 
+my %posnum = (
+	'n' => '1',
+	'v' => '2',
+	'a' => '3',
+	'r' => '4',
+);
+
 # Non-dereferenceable URIs make the baby Jesus cry. Or something like that.
 # Right about now, I need to walk barefoot through the streets, cap in hand,
 # saying "please guv'nor, spare a SPARQL endpoint"
@@ -63,9 +70,9 @@ while(<IN>) {
 	my $ulem = uri_escape_utf8($lemma);
 	my $lbl = $lemma =~ s/_/ /g;
 
-	print OUT "inst:synsetid-$synset\n";
+	print OUT "inst:synsetid-${posnum{$pos}}${synset}\n";
 	print OUT "    a wn20schema:$possynset{$pos} ;\n";
-	print OUT "    wn20schema:synsetId \"$synset\"^^<xsd:nonNegativeInteger> ;\n";
+	print OUT "    wn20schema:synsetId \"${posnum{$pos}}${synset}\"^^<xsd:nonNegativeInteger> ;\n";
 	print OUT "    wn20schema:containsWordSense <${inst}wordsense-$ulem-$pos-$sense> ;\n";
         print OUT "    caWNextra:confidenceScore \"$cs\"^^<xsd:nonNegativeInteger> .\n";
 	print OUT "\n";
@@ -78,7 +85,7 @@ while(<IN>) {
 	print LEM "    lemon:entry <${leminst}$ulem-$poslexvo{$pos}> .\n";
 	print LEM "\n";
 	print LEM "<${leminst}$ulem-$pos-$sense>\n";
-	print LEM "    lemon:reference cawninst:synsetid-$synset .\n";
+	print LEM "    lemon:reference cawninst:synsetid-${posnum{$pos}}${synset} .\n";
 	print LEM "\n";
 	print LEM "<${leminst}word-$ulem-canonicalForm>\n";
 	print LEM "    lemon:writtenRep \"$lemma\"\@ca .\n";
