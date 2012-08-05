@@ -31,8 +31,28 @@ is no RDF conversion of WordNet 1.6, I've used UPC's mappings between WordNet
 1.6 and 2.0. I used only alignments with a confidence score of '1'. In 
 theory, the relations in Princeton WordNet (in the W3C's RDF conversion)
 should apply to caWN, and, conversely, that the extra relations present in
-caWN should apply to Princeton WordNet. I don't know yet if that works in
-practice.
+caWN should apply to Princeton WordNet. 
+
+Given:
+```
+inst:synset-osseous-adjective-1 
+    owl:sameAs cainst:synsetid-302871410 .
+
+inst:synset-osseous-adjective-1
+    wnschema:containsWordSense inst:wordsense-bony-adjective-2, inst:wordsense-osseous-adjective-1, inst:wordsense-osteal-adjective-2 .
+
+inst:synsetid-302871410 
+    wnschema:containsWordSense cainst:wordsense-ossi-a-1 .
+```
+
+and a quick check:
+
+```
+$ echo ossi|apertium ca-en
+Osseous
+```
+
+it seems to work out in practice.
 
 In addition to a conversion using the W3C model, there is a conversion that
 follows the Lemon model. This is probably the version you want to use - at
