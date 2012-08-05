@@ -18,7 +18,8 @@ derivational relationships are at the _synset_ level, not the lexical level.
 If you know what a synset is, you'll know why that's weird. (And if you don't,
 you've probably taken a wrong turn somewhere.) To put it in pseudo-RDF:
 
-```that_decision
+```
+that_decision
     rdfs:seeAlso <https://github.com/jimregan/caWN-200611-rdf/caWN/wordsense-dietilamida_de_l%27%C3%A0cid_lis%C3%A8rgic-n-1> .
 ```
 
