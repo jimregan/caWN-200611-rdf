@@ -25,3 +25,16 @@ that_decision
 
 If your instinct is that I screwed up somewhere, trust that instinct. 
 
+Catalan WordNet follows the EuroWordNet model; in essence, this means that
+it attaches Catalan WordSense entries to Princeton's Synsets. As there
+is no RDF conversion of WordNet 1.6, I've used UPC's mappings between WordNet
+1.6 and 2.0. I used only alignments with a confidence score of '1'. In 
+theory, the relations in Princeton WordNet (in the W3C's RDF conversion)
+should apply to caWN, and, conversely, that the extra relations present in
+caWN should apply to Princeton WordNet. I don't know yet if that works in
+practice.
+
+In addition to a conversion using the W3C model, there is a conversion that
+follows the Lemon model. This is probably the version you want to use - at
+the very least, it uses a more general set of terms for part of speech, etc.
+
