@@ -42,7 +42,7 @@ my %posnum = (
 my $base = 'https://github.com/jimregan/caWN-200611-rdf/';
 my $inst = "${base}caWN/";
 my $leminst = "${base}lemon/";
-my $caex = '${base}extra.ttl#';
+my $caex = "${base}extra.ttl#";
 
 print OUT "\@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n";
 print OUT "\@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n";
